@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galentine's Day 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 900px;
+        }
+
+        .screen {
+            display: none;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Screen 1 Styles */
+        h1 {
+            color: #ff1493;
+            font-size: 2.5em;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+        }
+
+        .subtitle {
+            color: #ff69b4;
+            font-size: 1.2em;
+            margin: 10px 0 30px 0;
+        }
+
+        .heart-section {
+            position: relative;
+            display: inline-block;
+            margin: 30px 0;
+        }
+
+        .crochet-wrapper {
+            display: inline-block;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .crochet-wrapper:hover {
+            transform: scale(1.05);
+        }
+
+        .crochet-grid {
+            display: grid;
+            grid-template-columns: repeat(11, 32px);
+            grid-template-rows: repeat(10, 32px);
+            gap: 2px;
+            position: relative;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.2);
+        }
+
+        .pixel {
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
+        }
+
+        .white {
+            background-color: #f0f0f0;
+        }
+
+        .red {
+            background-color: #ff3b54;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hot Chocolate Cup */
+        .hot-chocolate {
+            position: absolute;
+            bottom: -60px;
+            right: -80px;
+            width: 100px;
+            height: 130px;
+        }
+
+        .cup {
+            width: 70px;
+            height: 80px;
+            background: linear-gradient(135deg, #d2691e 0%, #8b4513 100%);
+            border-radius: 0 0 20px 20px;
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 3px solid #a0522d;
+        }
+
+        .handle {
+            width: 20px;
+            height: 35px;
+            border: 4px solid #8b4513;
+            border-left: none;
+            border-radius: 0 15px 15px 0;
+            position: absolute;
+            right: -18px;
+            top: 25px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .chocolate {
+            width: 64px;
+            height: 50px;
+            background: linear-gradient(180deg, #6b4423 0%, #4a2c1a 100%);
+            position: absolute;
+            bottom: 3px;
+            left: 3px;
+            border-radius: 0 0 17px 17px;
+        }
+
+        .whipped-cream {
+            width: 70px;
+            height: 28px;
+            background: #fff;
+            position: absolute;
+            top: -14px;
+            left: 0;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+        }
+
+        .whipped-cream::before,
+        .whipped-cream::after {
+            content: '';
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .whipped-cream::before {
+            top: -8px;
+            left: 12px;
+        }
+
+        .whipped-cream::after {
+            top: -8px;
+            right: 12px;
+        }
+
+        /* Steam */
+        .steam {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .steam span {
+            display: block;
+            width: 3px;
+            height: 15px;
+            background: rgba(255,255,255,0.5);
+            margin: 2px auto;
+            border-radius: 50%;
+            animation: steam 2s ease-in-out infinite;
+        }
+
+        .steam span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .steam span:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .steam span:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        @keyframes steam {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                opacity: 0.7;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-15px) scale(0.5);
+            }
+        }
+
+        /* Question Screen */
+        .hearts {
+            font-size: 40px;
+            margin: 20px 0;
+        }
+
+        .question {
+            font-size: 2em;
+            color: #ff1493;
+            margin: 40px 0;
+            font-weight: bold;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 20px 50px;
+            font-size: 1.5em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .yes-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+        }
+
+        .yes-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .no-btn {
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .no-btn:hover {
+            background: #e0e0e0;
+        }
+
+        .error {
+            display: none;
+            color: #ff1493;
+            font-size: 1.2em;
+            margin: 20px 0;
+            animation: shake 0.5s ease;
+            font-weight: bold;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        /* Congrats Screen */
+        .congrats {
+            font-size: 3em;
+            color: #ff1493;
+            margin: 30px 0;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .photo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin: 30px auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.4);
+            border: 5px solid #ff69b4;
+        }
+
+        @media (max-width: 768px) {
+            .hot-chocolate {
+                right: -60px;
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .crochet-grid {
+                grid-template-columns: repeat(11, 22px);
+                grid-template-rows: repeat(10, 22px);
+                gap: 1px;
+                padding: 30px;
+            }
+            
+            .pixel {
+                width: 22px;
+                height: 22px;
+            }
+            
+            .hot-chocolate {
+                position: static;
+                margin: 20px auto 0;
+                transform: scale(1);
+            }
+            
+            button {
+                padding: 15px 30px;
+                font-size: 1.2em;
+            }
+
+            .question {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Screen 1: Pixel Heart with Hot Chocolate -->
+        <div class="screen active" id="screen1">
+            <h1>Happy Galentine's Day!</h1>
+            <p class="subtitle">Click the heart to continue...</p>
+            
+            <div class="heart-section">
+                <div class="crochet-wrapper" onclick="showQuestion()">
+                    <div class="crochet-grid">
+                        <!-- Row 1 (top) -->
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+
+                        <!-- Row 2 -->
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+
+                        <!-- Row 3 -->
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+
+                        <!-- Row 4 -->
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+
+                        <!-- Row 5 -->
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+
+                        <!-- Row 6 -->
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+
+                        <!-- Row 7 -->
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+
+                        <!-- Row 8 -->
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+
+                        <!-- Row 9 -->
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+
+                        <!-- Row 10 (bottom) -->
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel red"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                        <div class="pixel white"></div>
+                    </div>
+                </div>
+
+                <!-- Hot Chocolate Cup -->
+                <div class="hot-chocolate">
+                    <div class="steam">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="cup">
+                        <div class="whipped-cream"></div>
+                        <div class="chocolate"></div>
+                        <div class="handle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen 2: Question -->
+        <div class="screen" id="screen2">
+            <div class="hearts">💕 💖 💕</div>
+            <p class="question">Will you be my Galentine?</p>
+            <div class="error" id="error">❌ Error: That option is not available! 😊</div>
+            <div class="buttons">
+                <button class="yes-btn" onclick="showCongrats()">Yes! 💕</button>
+                <button class="no-btn" onclick="showError()">No</button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Congrats -->
+        <div class="screen" id="screen3">
+            <p class="congrats">🎉 Yay! 🎉</p>
+            <h1>We're Galentines!</h1>
+            <img src="collage.jpeg" alt="Us Together" class="photo">
+            <div class="hearts">💕 💖 💗 💓 💕</div>
+        </div>
+    </div>
+
+    <script>
+        function showQuestion() {
+            document.getElementById('screen1').classList.remove('active');
+            document.getElementById('screen2').classList.add('active');
+        }
+
+        function showError() {
+            const error = document.getElementById('error');
+            error.style.display = 'block';
+            setTimeout(() => {
+                error.style.display = 'none';
+            }, 2000);
+        }
+
+        function showCongrats() {
+            document.getElementById('screen2').classList.remove('active');
+            document.getElementById('screen3').classList.add('active');
+        }
+    </script>
+</body>
+</html>
