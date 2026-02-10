@@ -73,19 +73,19 @@
 
         .crochet-grid {
             display: grid;
-            grid-template-columns: repeat(11, 32px);
-            grid-template-rows: repeat(10, 32px);
+            grid-template-columns: repeat(11, 26px);
+            grid-template-rows: repeat(10, 26px);
             gap: 2px;
             position: relative;
             background: white;
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(255, 105, 180, 0.2);
         }
 
         .pixel {
-            width: 32px;
-            height: 32px;
+            width: 26px;
+            height: 26px;
             border-radius: 3px;
         }
 
@@ -296,8 +296,7 @@
         }
 
         .photo {
-            max-width: 400px;
-            width: 100%;
+            width: min(70vw, 320px);
             height: auto;
             margin: 30px auto;
             border-radius: 20px;
